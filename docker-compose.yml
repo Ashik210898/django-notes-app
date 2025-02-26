@@ -1,7 +1,13 @@
-version : "3.3"
-services :
-  web :
-    build:
-       context: .
-     ports :
-         - "8002:8002"
+version: '3.8'
+
+services:
+  notes-app:
+    image: notes-app:latest
+    build: .
+    ports:
+      - "8002:8002"
+    restart: always
+    environment:
+      - APP_ENV=production
+    command: >
+      sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8002"
